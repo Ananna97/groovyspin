@@ -1,0 +1,4 @@
+{
+    "port" : "3100",
+    "mongodbUrl" : "mongodb+srv://anaiancu1505:Parola123@cluster0.ccqyt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+}
