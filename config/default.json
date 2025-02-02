@@ -1,4 +1,19 @@
 {
     "port" : "3100",
-    "mongodbUrl" : "mongodb+srv://anaiancu1505:Parola123@cluster0.ccqyt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    "mongodbUrl" : "mongodb+srv://anaiancu1505:Parola123@cluster0.ccqyt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    "adminSecretToken": "admin@123",
+    "jwtSecret": "secretTest@123456",
+    "loginLink": "http://localhost:3000/auth",
+    "appPrefix": "/api/v1",
+    "fileStoragePath": "../uploads/",
+    "emailService": {
+        "testDomain": "sandbox63756e95ed6e4450954499ec20f73816.mailgun.org",
+        "privateApiKey": "ec206d49f5fec4bb8e688c22633229ea",
+        "publicApiKey": "pubkey-d20afc05e8522af0031d6d5b524eb2eb",   
+        "emailTemplates": {
+          "forgotPassword": "forgot-password-template",
+          "verifyEmail": "verify-email-template",
+          "orderSuccess": "order-success"
+        }
+    }
 }
