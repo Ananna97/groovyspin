@@ -11,7 +11,7 @@ import { ProductRepository } from 'src/shared/repositories/product.repository';
 import { OrdersRepository } from 'src/shared/repositories/order.repository';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from 'src/shared/middleware/roles.guard';
-import config from 'config';
+import * as config from 'config';
 import { Products, ProductSchema } from 'src/shared/schema/products';
 import { License, LicenseSchema } from 'src/shared/schema/license';
 import { Orders, OrderSchema } from 'src/shared/schema/orders';

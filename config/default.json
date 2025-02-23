@@ -28,7 +28,7 @@
 
   "stripe": {
     "publishable_key": "pk_test_51QtANGPRTN4Ctc65CrOrbvlFS9eYNMg5NrJu30eGngeprMpFKXplNwPGFmGmzqLszpt8K7nIfoI5EjjS1pAoZsWO00ZAwFCU0z",
-    "secret_key": "sk_test_51GzkT8C75ex8AkqxNlnmuLprbZGDFTvbL2jGMVkyH70ZHXWRXfTeGCPeRlZjhhrABUm8s1GAGT43T5skBUv4hqBv00GrCiFOpg",
+    "secret_key": "sk_test_51QtANGPRTN4Ctc65EBJNE3EgbT3nC8gmJxayXgEf9t1yeBEYuvIOxqjsgCt2U1OsbIK3FvolpMipsFv4MsHj51YA004RAX5jwu",
     "successUrl": "http://localhost:3000/order-success",
     "cancelUrl": "http://localhost:3000/order-cancel",
     "webhookSecret": "whsec_65091664c52548dae5e241f06b7b885826abc096430fc3fcfea6fe567623d859"

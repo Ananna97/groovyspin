@@ -5,8 +5,8 @@ import Stripe from 'stripe';
 import { CreateProductDto } from './dto/create-product.dto';
 import { GetProductQueryDto } from './dto/get-product-query-dto';
 import qs2m from 'qs-to-mongo';
-import cloudinary from 'cloudinary';
-import config from 'config';
+import { v2 as cloudinary } from 'cloudinary';
+import * as config from 'config';
 import { unlinkSync } from 'fs';
 import { ProductSkuDto, ProductSkuDtoArr } from './dto/product-sku.dto';
 import { OrdersRepository } from 'src/shared/repositories/order.repository';
@@ -19,12 +19,13 @@ export class ProductsService {
     @Inject(OrdersRepository) private readonly orderDB: OrdersRepository,
     @InjectStripeClient() private readonly stripeClient: Stripe,
   ) {
-    cloudinary.v2.config({
+    cloudinary.config({
       cloud_name: config.get('cloudinary.cloud_name'),
       api_key: config.get('cloudinary.api_key'),
       api_secret: config.get('cloudinary.api_secret'),
-    });
+    });    
   }
+
   async createProduct(createProductDto: CreateProductDto): Promise<{
     message: string;
     result: Products;
@@ -199,7 +200,7 @@ export class ProductsService {
         throw new Error('Product does not exist');
       }
       if (product.imageDetails?.public_id) {
-        await cloudinary.v2.uploader.destroy(product.imageDetails.public_id, {
+        await cloudinary.uploader.destroy(product.imageDetails.public_id, {
           invalidate: true,
         });
       }
@@ -207,7 +208,7 @@ export class ProductsService {
       const bigSize = config.get<string>('cloudinary.bigSize');
       const [width, height] = bigSize.split('X');
   
-      const resOfCloudinary = await cloudinary.v2.uploader.upload(file.path, {
+      const resOfCloudinary = await cloudinary.uploader.upload(file.path, {
         folder: config.get('cloudinary.folderPath'),
         public_id: `${config.get('cloudinary.publicId_prefix')}${Date.now()}`,
         transformation: [

@@ -4,7 +4,7 @@ import { ProductRepository } from 'src/shared/repositories/product.repository';
 import { UserRepository } from 'src/shared/repositories/user.repository';
 import Stripe from 'stripe';
 import { checkoutDtoArr } from './dto/checkout.dto';
-import config from 'config';
+import * as config from 'config';
 import { userTypes } from 'src/shared/schema/users';
 import { orderStatus, paymentStatus } from 'src/shared/schema/orders';
 import { sendEmail } from 'src/shared/utility/mail-handler';
@@ -198,7 +198,7 @@ export class OrdersService {
     await sendEmail(
       email,
       config.get('emailService.emailTemplates.orderSuccess'),
-      'Order Success - Digizone',
+      'Order Success!',
       {
         orderId,
         orderLink,

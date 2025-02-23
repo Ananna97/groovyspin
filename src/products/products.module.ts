@@ -5,7 +5,7 @@ import {MongooseModule} from '@nestjs/mongoose';
 import {Products, ProductSchema} from 'src/shared/schema/products';
 import {Users, UserSchema} from 'src/shared/schema/users';
 import { StripeModule } from '@golevelup/nestjs-stripe';
-import config from 'config';
+import * as config from 'config';
 import {AuthMiddleware} from 'src/shared/middleware/auth';
 import {ProductRepository} from 'src/shared/repositories/product.repository';
 import {UserRepository} from 'src/shared/repositories/user.repository';

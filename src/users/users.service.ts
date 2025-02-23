@@ -49,7 +49,7 @@ export class UsersService {
         sendEmail(
           newUser.email,
           config.get('emailService.emailTemplates.verifyEmail'),
-          'Email verification - Digizone',
+          'Email verification',
           {
             customerName: newUser.name,
             customerEmail: newUser.email,
@@ -170,7 +170,7 @@ export class UsersService {
       sendEmail(
         user.email,
         config.get('emailService.emailTemplates.verifyEmail'),
-        'Email verification - Digizone',
+        'Email verification',
         {
           customerName: user.name,
           customerEmail: user.email,
@@ -211,7 +211,7 @@ export class UsersService {
       sendEmail(
         user.email,
         config.get('emailService.emailTemplates.forgotPassword'),
-        'Forgot password - Digizone',
+        'Forgot password',
         {
           customerName: user.name,
           customerEmail: user.email,

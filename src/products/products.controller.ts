@@ -5,7 +5,7 @@ import {Roles } from 'src/shared/middleware/role.decorators';
 import {userTypes } from 'src/shared/schema/users';
 import {GetProductQueryDto } from './dto/get-product-query-dto';
 import {FileInterceptor } from '@nestjs/platform-express';
-import config from 'config';
+import * as config from 'config';
 import {ProductSkuDto, ProductSkuDtoArr } from './dto/product-sku.dto';
 
 @Controller('products')

@@ -21,7 +21,10 @@ import { StripeModule } from '@golevelup/nestjs-stripe';
     UsersModule,
     ProductsModule,
     OrdersModule,
-    StripeModule,
+    StripeModule.forRoot({
+      apiKey: config.get<string>('stripe.secret_key'),
+      apiVersion: "2025-01-27.acacia",
+    }),
   ],
   controllers: [AppController],
   providers: [

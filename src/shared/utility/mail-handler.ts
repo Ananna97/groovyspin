@@ -1,5 +1,5 @@
 import FormData from 'form-data';
-import config from 'config';
+import * as config from 'config';
 import axios from 'axios';
 
 export const sendEmail = async (
