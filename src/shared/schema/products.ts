@@ -45,7 +45,7 @@ export class SkuDetails extends mongoose.Document {
   price: number;
 
   @Prop({})
-  validity: number; // in days
+  validity: number;
 
   @Prop({})
   lifetime: boolean;

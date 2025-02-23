@@ -41,6 +41,7 @@
     "cookie-parser": "^1.4.7",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
+    "nestjs-stripe": "^1.0.0",
     "qs-to-mongo": "^4.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",

@@ -8,11 +8,13 @@ import config from 'config';
 import { userTypes } from 'src/shared/schema/users';
 import { orderStatus, paymentStatus } from 'src/shared/schema/orders';
 import { sendEmail } from 'src/shared/utility/mail-handler';
+import { InjectStripeClient } from '@golevelup/nestjs-stripe';
+
 
 @Injectable()
 export class OrdersService {
   constructor(
-    @InjectStripe() private readonly stripeClient: Stripe,
+    @InjectStripeClient() private readonly stripeClient: Stripe,
     @Inject(OrdersRepository) private readonly orderDB: OrdersRepository,
     @Inject(ProductRepository) private readonly productDB: ProductRepository,
     @Inject(UserRepository) private readonly userDB: UserRepository,
@@ -207,7 +209,6 @@ export class OrdersService {
     try {
       const product = await this.productDB.findOne({ _id: item.productId });
   
-      // Handle case where product is not found
       if (!product) {
         throw new BadRequestException(`Product with ID ${item.productId} not found`);
       }
@@ -216,7 +217,6 @@ export class OrdersService {
         (sku) => sku.skuCode === item.skuCode
       );
   
-      // Handle case where SKU is not found
       if (!skuDetails) {
         throw new BadRequestException(`SKU ${item.skuCode} not found for product ${item.productId}`);
       }
