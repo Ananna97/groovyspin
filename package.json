@@ -20,11 +20,14 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@golevelup/nestjs-stripe": "^0.9.2",
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.0",
     "@nestjs/core": "^11.0.1",
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^11.0.0",
     "@nestjs/platform-express": "^11.0.1",
+    "@stripe/stripe-js": "^5.6.0",
     "@types/bcrypt": "^5.0.2",
     "@types/config": "^3.3.5",
     "@types/jsonwebtoken": "^9.0.8",
@@ -33,12 +36,15 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.14.1",
+    "cloudinary": "^2.5.1",
     "config": "^3.3.12",
     "cookie-parser": "^1.4.7",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
+    "qs-to-mongo": "^4.0.1",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "stripe": "^17.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

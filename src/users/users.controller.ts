@@ -3,8 +3,8 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Response } from 'express';
-import { userTypes } from 'src/shared/schema/users';
-import { Roles } from '../shared/schema/middleware/role.decorators';
+import { userTypes } from '../shared/schema/users';
+import { Roles } from '../shared/middleware/role.decorators';
 
 @Controller('users')
 export class UsersController {

@@ -1,5 +1,5 @@
 import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { userTypes } from 'src/shared/schema/users';
+import { userTypes } from '../../shared/schema/users';
 
 export class CreateUserDto {
   @IsNotEmpty()

@@ -1,12 +1,12 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
-import { UserRepository } from 'src/shared/repositories/user.repository';
+import { UserRepository } from '../shared/repositories/user.repository';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Users, UserSchema } from 'src/shared/schema/users';
+import { Users, UserSchema } from '../shared/schema/users';
 import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from 'src/shared/schema/middleware/roles.guard';
-import { AuthMiddleware } from 'src/shared/schema/middleware/auth';
+import { RolesGuard } from '../shared/middleware/roles.guard';
+import { AuthMiddleware } from '../shared/middleware/auth';
 
 @Module({
   controllers: [UsersController],

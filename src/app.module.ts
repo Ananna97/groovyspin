@@ -5,6 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import * as config from 'config';
 import { AllExceptionFilter } from './httpExceptionFilter';
 import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
+import { OrdersModule } from './orders/orders.module';
+import { StripeModule } from '@golevelup/nestjs-stripe';
 
 @Module({
   imports: [
@@ -16,6 +19,9 @@ import { UsersModule } from './users/users.module';
       w: 1,
     }),
     UsersModule,
+    ProductsModule,
+    OrdersModule,
+    StripeModule,
   ],
   controllers: [AppController],
   providers: [

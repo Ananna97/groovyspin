@@ -1,19 +1,36 @@
 {
-    "port" : "3100",
-    "mongodbUrl" : "mongodb+srv://anaiancu1505:Parola123@cluster0.ccqyt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    "adminSecretToken": "admin@123",
-    "jwtSecret": "secretTest@123456",
-    "loginLink": "http://localhost:3000/auth",
-    "appPrefix": "/api/v1",
-    "fileStoragePath": "../uploads/",
-    "emailService": {
-        "testDomain": "sandbox63756e95ed6e4450954499ec20f73816.mailgun.org",
-        "privateApiKey": "ec206d49f5fec4bb8e688c22633229ea",
-        "publicApiKey": "pubkey-d20afc05e8522af0031d6d5b524eb2eb",   
-        "emailTemplates": {
-          "forgotPassword": "forgot-password-template",
-          "verifyEmail": "verify-email-template",
-          "orderSuccess": "order-success"
-        }
-    }
+  "port" : "3100",
+  "mongodbUrl" : "mongodb+srv://anaiancu1505:Parola123@cluster0.ccqyt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+  "adminSecretToken": "admin@123",
+  "jwtSecret": "secretTest@123456",
+  "loginLink": "http://localhost:3000/auth",
+  "appPrefix": "/api/v1",
+  "fileStoragePath": "../uploads/",
+  "emailService": {
+      "testDomain": "sandbox63756e95ed6e4450954499ec20f73816.mailgun.org",
+      "privateApiKey": "ec206d49f5fec4bb8e688c22633229ea",
+      "publicApiKey": "pubkey-d20afc05e8522af0031d6d5b524eb2eb",   
+      "emailTemplates": {
+        "forgotPassword": "forgot-password-template",
+        "verifyEmail": "verify-email-template",
+        "orderSuccess": "order-success"
+      }
+  },
+    
+  "cloudinary": {
+    "cloud_name": "dnv6iybjc",
+    "api_key": "962532739664551",
+    "api_secret": "cvWAWlQsQnyswiEmZEy_zNHlmDo",
+    "folderPath": "groovyspin/products/",
+    "publicId_prefix": "groovy_prods_",
+    "bigSize": "400X400"
+  },
+
+  "stripe": {
+    "publishable_key": "pk_test_51QtANGPRTN4Ctc65CrOrbvlFS9eYNMg5NrJu30eGngeprMpFKXplNwPGFmGmzqLszpt8K7nIfoI5EjjS1pAoZsWO00ZAwFCU0z",
+    "secret_key": "sk_test_51GzkT8C75ex8AkqxNlnmuLprbZGDFTvbL2jGMVkyH70ZHXWRXfTeGCPeRlZjhhrABUm8s1GAGT43T5skBUv4hqBv00GrCiFOpg",
+    "successUrl": "http://localhost:3000/order-success",
+    "cancelUrl": "http://localhost:3000/order-cancel",
+    "webhookSecret": "whsec_65091664c52548dae5e241f06b7b885826abc096430fc3fcfea6fe567623d859"
+  }
 }

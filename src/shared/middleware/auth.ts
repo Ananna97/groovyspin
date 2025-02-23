@@ -1,6 +1,6 @@
 import { Inject, Injectable, NestMiddleware, UnauthorizedException} from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import { UserRepository } from '../../repositories/user.repository';
+import { UserRepository } from '../repositories/user.repository';
 import { decodeAuthToken } from '../utility/token-generator';
 
 @Injectable()

@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { userTypes } from 'src/shared/schema/users';
+import { userTypes } from '../shared/schema/users';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as config from 'config';
-import { UserRepository } from 'src/shared/repositories/user.repository';
-import { comparePassword, generateHashPassword } from 'src/shared/schema/utility/password-manager';
-import { sendEmail } from 'src/shared/schema/utility/mail-handler';
-import { generateAuthToken } from 'src/shared/schema/utility/token-generator';
+import { UserRepository } from '../shared/repositories/user.repository';
+import { comparePassword, generateHashPassword } from '../shared/utility/password-manager';
+import { sendEmail } from '../shared/utility/mail-handler';
+import { generateAuthToken } from '../shared/utility/token-generator';
 
 @Injectable()
 export class UsersService {
