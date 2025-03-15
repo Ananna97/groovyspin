@@ -62,13 +62,13 @@ export class ProductsController {
 
   @Post('/:productId/skus')
   @Roles(userTypes.ADMIN)
-  async updateProductSku(
+  async addProductSku(
     @Param('productId') productId: string,
-    @Body() updateProductSkuDto: ProductSkuDtoArr,
+    @Body() productSkuDto: ProductSkuDtoArr,
   ) {
-    return await this.productsService.updateProductSku(
+    return await this.productsService.addProductSku(
       productId,
-      updateProductSkuDto,
+      productSkuDto,
     );
   }
 
@@ -77,12 +77,12 @@ export class ProductsController {
   async updateProductSkuById(
     @Param('productId') productId: string,
     @Param('skuId') skuId: string,
-    @Body() updateProductSkuDto: ProductSkuDto,
+    @Body() productSkuDto: ProductSkuDto,
   ) {
     return await this.productsService.updateProductSkuById(
       productId,
       skuId,
-      updateProductSkuDto,
+      productSkuDto,
     );
   }
 
@@ -93,51 +93,6 @@ export class ProductsController {
     @Param('skuId') skuId: string,
   ) {
     return await this.productsService.deleteProductSkuById(productId, skuId);
-  }
-
-  @Post('/:productId/skus/:skuId/licenses')
-  @Roles(userTypes.ADMIN)
-  async addProductSkuLicense(
-    @Param('productId') productId: string,
-    @Param('skuId') skuId: string,
-    @Body('licenseKey') licenseKey: string,
-  ) {
-    return await this.productsService.addProductSkuLicense(
-      productId,
-      skuId,
-      licenseKey,
-    );
-  }
-
-  @Delete('/licenses/:licenseKeyId')
-  @Roles(userTypes.ADMIN)
-  async removeProductSkuLicense(@Param('licenseKeyId') licenseId: string) {
-    return await this.productsService.removeProductSkuLicense(licenseId);
-  }
-
-  @Get('/:productId/skus/:skuId/licenses')
-  @Roles(userTypes.ADMIN)
-  async getProductSkuLicenses(
-    @Param('productId') productId: string,
-    @Param('skuId') skuId: string,
-  ) {
-    return await this.productsService.getProductSkuLicenses(productId, skuId);
-  }
-
-  @Put('/:productId/skus/:skuId/licenses/:licenseKeyId')
-  @Roles(userTypes.ADMIN)
-  async updateProductSkuLicense(
-    @Param('productId') productId: string,
-    @Param('skuId') skuId: string,
-    @Param('licenseKeyId') licenseKeyId: string,
-    @Body('licenseKey') licenseKey: string,
-  ) {
-    return await this.productsService.updateProductSkuLicense(
-      productId,
-      skuId,
-      licenseKeyId,
-      licenseKey,
-    );
   }
 
   @Post('/:productId/reviews')

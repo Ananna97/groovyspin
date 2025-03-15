@@ -1,5 +1,5 @@
 import {IsArray, IsEnum, IsNotEmpty, IsOptional, IsString} from 'class-validator';
-import {baseType, categoryType, platformType, SkuDetails} from 'src/shared/schema/products';
+import {categoryType, SkuDetails} from 'src/shared/schema/products';
 
 export class CreateProductDto {
   @IsString()
@@ -23,25 +23,11 @@ export class CreateProductDto {
 
   @IsString()
   @IsNotEmpty()
-  @IsEnum(platformType)
-  platformType: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsEnum(baseType)
-  baseType: string;
-
-  @IsString()
-  @IsNotEmpty()
   productUrl: string;
-
-  @IsString()
-  @IsNotEmpty()
-  downloadUrl: string;
 
   @IsArray()
   @IsNotEmpty()
-  requirementSpecification: Record<string, any>[];
+  productDetails: Record<string, any>[];
 
   @IsArray()
   @IsNotEmpty()

@@ -50,7 +50,7 @@ export class UsersController {
 
   @Put('/logout')
   async logout(@Res() res: Response) {
-    res.clearCookie('_digi_auth_token');
+    res.clearCookie('_groovyspin_auth_token');
     return res.status(HttpStatus.OK).json({
       success: true,
       message: 'Logout successfully',

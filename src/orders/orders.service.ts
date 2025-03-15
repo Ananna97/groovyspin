@@ -10,7 +10,6 @@ import { orderStatus, paymentStatus } from 'src/shared/schema/orders';
 import { sendEmail } from 'src/shared/utility/mail-handler';
 import { InjectStripeClient } from '@golevelup/nestjs-stripe';
 
-
 @Injectable()
 export class OrdersService {
   constructor(
@@ -38,21 +37,21 @@ export class OrdersService {
       const userDetails = await this.userDB.findOne({
         _id: user._id.toString(),
       });
-  
+
       if (!userDetails) {
         throw new BadRequestException('User not found');
       }
-  
+
       const query = {} as Record<string, any>;
-  
+
       if (userDetails.type === userTypes.CUSTOMER) {
         query.userId = user._id.toString();
       }
-  
+
       if (status) {
         query.status = status;
       }
-  
+
       const orders = await this.orderDB.find(query);
       return {
         success: true,
@@ -63,7 +62,6 @@ export class OrdersService {
       throw error;
     }
   }
-  
 
   async findOne(id: string) {
     try {
@@ -81,31 +79,23 @@ export class OrdersService {
   async checkout(body: checkoutDtoArr, user: Record<string, any>) {
     try {
       const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
-
       const cartItems = body.checkoutDetails;
       
       for (const item of cartItems) {
-        const itemsAreInStock = await this.productDB.findLicense({
-          productSku: item.skuId,
-          isSold: false,
+        lineItems.push({
+          price: item.skuPriceId,
+          quantity: item.quantity,
+          adjustable_quantity: {
+            enabled: true,
+            maximum: 5,
+            minimum: 1,
+          },
         });
-      
-        if (itemsAreInStock.length <= item.quantity) {
-          lineItems.push({
-            price: item.skuPriceId,
-            quantity: item.quantity,
-            adjustable_quantity: {
-              enabled: true,
-              maximum: 5,
-              minimum: 1,
-            },
-          });
-        }
       }
 
       if (lineItems.length === 0) {
         throw new BadRequestException(
-          'These products are not available right now',
+          'No products available for checkout',
         );
       }
 
@@ -152,12 +142,6 @@ export class OrdersService {
         const orderData = await this.createOrderObject(session);
         const order = await this.create(orderData);
         if (session.payment_status === paymentStatus.paid) {
-          if (order.orderStatus !== orderStatus.completed) {
-            for (const item of order.orderedItems) {
-              const licenses = await this.getLicense(orderData.orderId, item);
-              item.licenses = licenses;
-            }
-          }
           await this.fullfillOrder(session.id, {
             orderStatus: orderStatus.completed,
             isOrderDelivered: true,
@@ -166,9 +150,7 @@ export class OrdersService {
           this.sendOrderEmail(
             orderData.customerEmail,
             orderData.orderId,
-            `${config.get('emailService.emailTemplates.orderSuccess')}${
-              order._id
-            }`,
+            `${config.get('emailService.emailTemplates.orderSuccess')}${order._id}`,
           );
         }
       } else {
@@ -205,63 +187,18 @@ export class OrdersService {
       },
     );
   }
-  async getLicense(orderId: string, item: Record<string, any>) {
-    try {
-      const product = await this.productDB.findOne({ _id: item.productId });
-  
-      if (!product) {
-        throw new BadRequestException(`Product with ID ${item.productId} not found`);
-      }
-  
-      const skuDetails = product.skuDetails?.find(
-        (sku) => sku.skuCode === item.skuCode
-      );
-  
-      if (!skuDetails) {
-        throw new BadRequestException(`SKU ${item.skuCode} not found for product ${item.productId}`);
-      }
-  
-      const licenses = await this.productDB.findLicense(
-        {
-          productSku: skuDetails._id,
-          isSold: false,
-        },
-        item.quantity
-      );
-  
-      if (!licenses || licenses.length === 0) {
-        throw new BadRequestException(`No available licenses for SKU ${item.skuCode}`);
-      }
-  
-      const licenseIds = licenses.map((license) => license._id);
-  
-      await this.productDB.updateLicenseMany(
-        {
-          _id: {
-            $in: licenseIds,
-          },
-        },
-        {
-          isSold: true,
-          orderId,
-        }
-      );
-  
-      return licenses.map((license) => license.licenseKey);
-    } catch (error) {
-      throw error;
-    }
-  }
-  
+
   async createOrderObject(session: Stripe.Checkout.Session) {
     try {
       const lineItems = await this.stripeClient.checkout.sessions.listLineItems(
         session.id,
       );
-  
+
       const orderData = {
         orderId: Math.floor(new Date().valueOf() * Math.random()) + '',
-        userId: session.metadata?.userId ? session.metadata.userId.toString() : '',
+        userId: session.metadata?.userId
+          ? session.metadata.userId.toString()
+          : '',
         customerAddress: session.customer_details?.address ?? {},
         customerEmail: session.customer_email ?? '',
         customerPhoneNumber: session.customer_details?.phone ?? '',
@@ -276,9 +213,10 @@ export class OrdersService {
         checkoutSessionId: session.id ?? '',
         orderedItems: lineItems.data.map((item) => {
           if (!item.price || !item.price.metadata) {
-            throw new BadRequestException(`Invalid price data for item: ${item.description}`);
+            throw new BadRequestException(
+              `Invalid price data for item: ${item.description}`,
+            );
           }
-  
           return {
             ...item.price.metadata,
             quantity: item.quantity?.toString() ?? '0',
@@ -289,5 +227,5 @@ export class OrdersService {
     } catch (error) {
       throw error;
     }
-  }  
+  }
 }

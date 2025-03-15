@@ -31,6 +31,6 @@
     "secret_key": "sk_test_51QtANGPRTN4Ctc65EBJNE3EgbT3nC8gmJxayXgEf9t1yeBEYuvIOxqjsgCt2U1OsbIK3FvolpMipsFv4MsHj51YA004RAX5jwu",
     "successUrl": "http://localhost:3000/order-success",
     "cancelUrl": "http://localhost:3000/order-cancel",
-    "webhookSecret": "whsec_65091664c52548dae5e241f06b7b885826abc096430fc3fcfea6fe567623d859"
+    "webhookSecret": "whsec_74ed1227c844c0e1ebd5a759e09b380aebf9e6bc14c29e44ca1b4138c2d65a66"
   }
 }

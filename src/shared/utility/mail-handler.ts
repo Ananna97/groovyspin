@@ -1,4 +1,4 @@
-import FormData from 'form-data';
+import * as FormData from 'form-data';
 import * as config from 'config';
 import axios from 'axios';
 
@@ -31,8 +31,8 @@ export const sendEmail = async (
         'emailService.testDomain',
       )}/messages`,
       headers: {
+        ...form.getHeaders(), 
         Authorization: `Basic ${token}`,
-        contentType: 'multipart/form-data',
       },
       data: form,
     });

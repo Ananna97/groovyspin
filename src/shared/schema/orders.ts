@@ -37,9 +37,6 @@ export class OrderedItems {
 
   @Prop({ required: true })
   productName: string;
-
-  @Prop({ default: [] })
-  licenses: string[];
 }
 
 @Schema({ timestamps: true })

@@ -57,8 +57,10 @@ export class ProductsService {
       if (query.homepage) {
         callForHomePage = true;
       }
-      delete query.homepage;
+      const qs2m = require('qs-to-mongo');
+
       const { criteria, options, links } = qs2m(query);
+
       if (callForHomePage) {
         const products = await this.productDB.findProductWithGroupBy();
         return {
@@ -243,7 +245,7 @@ export class ProductsService {
     }
   }  
 
-  async updateProductSku(productId: string, data: ProductSkuDtoArr) {
+  async addProductSku(productId: string, data: ProductSkuDtoArr) {
     try {
       const product = await this.productDB.findOne({ _id: productId });
       if (!product) {
@@ -277,7 +279,7 @@ export class ProductsService {
       );
   
       return {
-        message: 'Product sku updated successfully',
+        message: 'Product sku added successfully',
         success: true,
         result: null,
       };
@@ -360,9 +362,6 @@ export class ProductsService {
       await this.stripeClient.prices.update(skuDetails.stripePriceId, {
         active: false,
       });
-  
-      await this.productDB.deleteSku(id, skuId);
-      await this.productDB.deleteAllLicences(id, skuId);
 
   
       return {
@@ -372,111 +371,6 @@ export class ProductsService {
           id,
           skuId,
         },
-      };
-    } catch (error) {
-      throw error;
-    }
-  }
-  
-  async addProductSkuLicense(
-    productId: string,
-    skuId: string,
-    licenseKey: string,
-  ) {
-    try {
-      const product = await this.productDB.findOne({ _id: productId });
-      if (!product) {
-        throw new Error('Product does not exist');
-      }
-
-      const sku = product.skuDetails.find((sku) => sku._id == skuId);
-      if (!sku) {
-        throw new Error('Sku does not exist');
-      }
-
-      const result = await this.productDB.createLicense(
-        productId,
-        skuId,
-        licenseKey,
-      );
-
-      return {
-        message: 'License key added successfully',
-        success: true,
-        result: result,
-      };
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async removeProductSkuLicense(id: string) {
-    try {
-      const result = await this.productDB.removeLicense({ _id: id });
-
-      return {
-        message: 'License key removed successfully',
-        success: true,
-        result: result,
-      };
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async getProductSkuLicenses(productId: string, skuId: string) {
-    try {
-      const product = await this.productDB.findOne({ _id: productId });
-      if (!product) {
-        throw new Error('Product does not exist');
-      }
-
-      const sku = product.skuDetails.find((sku) => sku._id == skuId);
-      if (!sku) {
-        throw new Error('Sku does not exist');
-      }
-
-      const result = await this.productDB.findLicense({
-        product: productId,
-        productSku: skuId,
-      });
-
-      return {
-        message: 'Licenses fetched successfully',
-        success: true,
-        result: result,
-      };
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async updateProductSkuLicense(
-    productId: string,
-    skuId: string,
-    licenseKeyId: string,
-    licenseKey: string,
-  ) {
-    try {
-      const product = await this.productDB.findOne({ _id: productId });
-      if (!product) {
-        throw new Error('Product does not exist');
-      }
-
-      const sku = product.skuDetails.find((sku) => sku._id == skuId);
-      if (!sku) {
-        throw new Error('Sku does not exist');
-      }
-
-      const result = await this.productDB.updateLicense(
-        { _id: licenseKeyId },
-        { licenseKey: licenseKey },
-      );
-
-      return {
-        message: 'License key updated successfully',
-        success: true,
-        result: result,
       };
     } catch (error) {
       throw error;
@@ -507,7 +401,7 @@ export class ProductsService {
       }
 
       const order = await this.orderDB.findOne({
-        customerId: user._id,
+        userId: user._id,
         'orderedItems.productId': productId,
       });
 

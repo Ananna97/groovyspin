@@ -2,21 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 
 export enum categoryType {
-  operatingSystem = 'Operating System',
-  applicationSoftware = 'Application Software',
-}
-
-export enum platformType {
-  windows = 'Windows',
-  mac = 'Mac',
-  linux = 'Linux',
-  android = 'Android',
-  ios = 'iOS',
-}
-
-export enum baseType {
-  computer = 'Computer',
-  mobile = 'Mobile',
+  vinyl = 'Vinyl',
+  book = 'Book',
 }
 
 @Schema({ timestamps: true })
@@ -75,30 +62,12 @@ export class Products {
 
   @Prop({
     required: true,
-    enum: [categoryType.applicationSoftware, categoryType.operatingSystem],
+    enum: [categoryType.vinyl, categoryType.book],
   })
   category: string;
 
-  @Prop({
-    required: true,
-    enum: [
-      platformType.android,
-      platformType.ios,
-      platformType.linux,
-      platformType.mac,
-      platformType.windows,
-    ],
-  })
-  platformType: string;
-
-  @Prop({ required: true, enum: [baseType.computer, baseType.mobile] })
-  baseType: string;
-
   @Prop({ required: true })
   productUrl: string;
-
-  @Prop({ required: true })
-  downloadUrl: string;
 
   @Prop({})
   avgRating: number;
@@ -113,7 +82,7 @@ export class Products {
   imageDetails: Record<string, any>;
 
   @Prop({})
-  requirementSpecification: Record<string, any>[];
+  productDetails: Record<string, any>[];
 
   @Prop({})
   highlights: string[];
