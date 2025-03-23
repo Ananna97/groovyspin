@@ -257,7 +257,7 @@ export class ProductsService {
         if (!data.skuDetails[i].stripePriceId) {
           const stripPriceDetails = await this.stripeClient.prices.create({
             unit_amount: data.skuDetails[i].price * 100,
-            currency: 'inr',
+            currency: 'ron',
             product: product.stripeProductId,
             metadata: {
               skuCode: skuCode ?? null,
@@ -307,7 +307,7 @@ export class ProductsService {
       if (data.price !== sku.price) {
         const priceDetails = await this.stripeClient.prices.create({
           unit_amount: data.price * 100,
-          currency: 'inr',
+          currency: 'ron',
           product: product.stripeProductId,
           metadata: {
             skuCode: sku.skuCode ?? null,

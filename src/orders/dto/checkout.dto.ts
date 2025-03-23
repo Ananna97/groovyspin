@@ -4,10 +4,6 @@ export class checkoutDto {
   @IsNotEmpty()
   skuPriceId: string;
 
-  @IsNumber()
-  @IsNotEmpty()
-  quantity: number;
-
   @IsString()
   @IsNotEmpty()
   skuId: string;

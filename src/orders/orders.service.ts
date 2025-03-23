@@ -84,12 +84,7 @@ export class OrdersService {
       for (const item of cartItems) {
         lineItems.push({
           price: item.skuPriceId,
-          quantity: item.quantity,
-          adjustable_quantity: {
-            enabled: true,
-            maximum: 5,
-            minimum: 1,
-          },
+          quantity: 1,
         });
       }
 
@@ -219,7 +214,7 @@ export class OrdersService {
           }
           return {
             ...item.price.metadata,
-            quantity: item.quantity?.toString() ?? '0',
+            quantity: '1',
           };
         }),
       };

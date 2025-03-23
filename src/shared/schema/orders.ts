@@ -18,9 +18,6 @@ export class OrderedItems {
   productId: string;
 
   @Prop({ required: true })
-  quantity: number;
-
-  @Prop({ required: true })
   skuCode: string;
 
   @Prop({ required: true })
